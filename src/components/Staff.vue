@@ -489,8 +489,8 @@ const updateContactStatus = async (contact) => {
 const deleteContact = async (id) => {
   if (!confirm('Kontakt wirklich löschen?')) return;
   try {
-  const token = authStore.token || localStorage.getItem('token'); 
-    const response = await fetch(`http://localhost:3000/api/contacts/${contactId}`, {
+    const token = authStore.token || localStorage.getItem('token'); 
+    const response = await fetch(`http://localhost:3000/api/contacts/${id}`, {
       method: 'DELETE',
       headers: {
         'Authorization': `Bearer ${token}`

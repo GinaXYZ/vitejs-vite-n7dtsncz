@@ -7,7 +7,7 @@ import Cart from '../components/cart.vue';
 import Voegel from '../components/Voegel.vue';
 import Blog from '../components/Blog.vue';
 import Spenden from '../components/Spenden.vue';
-import Login from '../components/login.vue';
+import Login from '../components/Login.vue';
 import Profile from '../components/Profile.vue';
 import Register from '../components/Register.vue';
 import Category from '../components/Shop.vue';

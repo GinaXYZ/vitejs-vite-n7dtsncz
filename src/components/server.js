@@ -57,7 +57,12 @@ app.get('/api/blog', async (req, res) => {
 });
 
 app.post('/api/blog', authenticateToken,async (req, res) => {
+  if (!['admin', 'staff'].includes(req.user.role)) {
+    return res.status(403).json({ error: 'Keine Berechtigung für Blog-Posts' });
+  }
+
   const { title, content, imageUrl, category, author } = req.body;
+  
   if (!title || !content) {
     return res.status(400).json({ error: 'Titel und Inhalt sind erforderlich' });
   }
@@ -79,6 +84,10 @@ app.post('/api/blog', authenticateToken,async (req, res) => {
 });
 
 app.delete('/api/blog/:id',authenticateToken, async (req, res) => {
+    if (!['admin', 'staff'].includes(req.user.role)) {
+    return res.status(403).json({ error: 'Keine Berechtigung zum Löschen' });
+  }
+
   const { id } = req.params;
   const query = 'DELETE FROM blog_posts WHERE id = ?';
   try {
@@ -240,6 +249,10 @@ app.get('/api/products', async (req, res) => {
 });
 
 app.post('/api/products', authenticateToken,async (req, res) => {
+  if (req.user.role !== 'admin') {
+    return res.status(403).json({ error: 'Nur Admins können Produkte hinzufügen' });
+  }
+
   const { title, price, description, category, amountLeft, image } = req.body;
   if (!title || !price || !description || !category || !amountLeft || !image) {
     return res.status(400).json({ error: 'Alle Felder müssen ausgefüllt sein.' });
@@ -508,6 +521,9 @@ app.get('/api/map-items', async (req, res) => {
 });
 
 app.post('/api/map-items', authenticateToken,async (req, res) => {
+    if (!['admin', 'staff'].includes(req.user.role)) {
+    return res.status(403).json({ error: 'Keine Berechtigung zum Bearbeiten' });
+  }
   const { label, class: itemClass, x, y, image, details } = req.body;
   const query = `
     INSERT INTO map_items (label, class, x, y, image, name, species, age, description, status)
@@ -566,6 +582,10 @@ app.put('/api/map-items/:id', authenticateToken,async (req, res) => {
 });
 
 app.delete('/api/map-items/:id', authenticateToken,async (req, res) => {
+  if (!['admin', 'staff'].includes(req.user.role)) {
+    return res.status(403).json({ error: 'Keine Berechtigung zum Löschen' });
+  }
+
   const { id } = req.params;
   try {
     const [result] = await pool.query('DELETE FROM map_items WHERE id = ?', [id]);
@@ -579,6 +599,10 @@ app.delete('/api/map-items/:id', authenticateToken,async (req, res) => {
   }
 });
 app.put('/api/blog/:id', authenticateToken, async (req, res) => {
+  if (!['admin', 'staff'].includes(req.user.role)) {
+    return res.status(403).json({ error: 'Keine Berechtigung zum Bearbeiten' });
+  }
+
   const { id } = req.params;
   const { title, content, imageUrl, category } = req.body;
   
@@ -741,5 +765,23 @@ app.put('/api/patients/:id', authenticateToken,async (req, res) => {
   } catch (err) {
     console.error('Fehler beim Aktualisieren des Patienten:', err);
     res.status(500).json({ error: 'Fehler beim Aktualisieren des Patienten' });
+  }
+});
+app.delete('/api/products/:id', authenticateToken, async (req, res) => {
+  const { id } = req.params;
+  
+  if (req.user.role !== 'admin') {
+    return res.status(403).json({ error: 'Nur Admins können Produkte löschen' });
+  }
+  
+  try {
+    const [result] = await pool.query('DELETE FROM products WHERE idproducts = ?', [id]);
+    if (result.affectedRows === 0) {
+      return res.status(404).json({ error: 'Produkt nicht gefunden' });
+    }
+    res.json({ message: 'Produkt erfolgreich gelöscht' });
+  } catch (err) {
+    console.error('Fehler beim Löschen des Produkts:', err);
+    res.status(500).json({ error: 'Fehler beim Löschen des Produkts' });
   }
 });
