@@ -1,0 +1,17 @@
+body {
+    margin: 0;
+    padding: 0;
+  }
+  @media (max-width: 600px) {
+  h1 { font-size: 1.5rem; }
+  h2 { font-size: 1.2rem; }
+  h3 { font-size: 1rem; }
+  p, li, label, input, button { font-size: 1rem; }
+}
+:root {
+  --main-color: #0c4b47;
+  --accent-color: #2196f3;
+  --danger-color: #f44336;
+  --border-radius: 8px;
+  --font-main: 'Helvetica', sans-serif;
+}
