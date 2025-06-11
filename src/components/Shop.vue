@@ -124,7 +124,6 @@ const addProduct = async () => {
     console.error(error);
   }
 };
-
 const EditProduct = (product) => {
   if (authStore.user && authStore.user.role === 'admin') {
     editingProduct.value = { ...product };
@@ -245,12 +244,13 @@ const updateProduct = async () => {
                 <span v-if="product.amountLeft === 0">Ausverkauft</span>
                 <span v-else>In den Warenkorb</span>
               </button>
-                <button
+              <button
                 @click="EditProduct(product)"
                 class="edit-btn"
                 v-if="authStore.user && authStore.user.role === 'admin'"
-                >
-             </button>
+              >
+                ✏️ Bearbeiten
+              </button>
               </div>
             </div>
           </div>

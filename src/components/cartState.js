@@ -4,7 +4,6 @@ import { useAuthStore } from './auth.js';
 export const cart = ref([]);
 
 export const addToCart = (product) => {
-  cart.value = cart.value.filter(item => item && item.id);
   const existingProduct = cart.value.find((item) => item.id === product.id);
 
   if (existingProduct) {
@@ -16,7 +15,6 @@ export const addToCart = (product) => {
 };
 
 export const removeFromCart = (product) => {
-  cart.value = cart.value.filter(item => item && item.id);
   const existingProduct = cart.value.find((item) => item.id === product.id);
   if (!existingProduct) return;
   if (existingProduct.quantity > 1) {
@@ -28,10 +26,12 @@ export const removeFromCart = (product) => {
 };
 
 export const getCartCount = () => {
-  cart.value = cart.value.filter(item => item && item.id);
   return cart.value.reduce((total, item) => total + item.quantity, 0);
 };
 
+export const cleanCart = () => {
+  cart.value = cart.value.filter(item => item && item.id && item.quantity > 0);
+};
 const saveCartToDB = async () => {
 
   cart.value = cart.value.filter(item => item && item.id && item.quantity > 0);

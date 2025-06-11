@@ -551,6 +551,10 @@ app.post('/api/map-items', authenticateToken,async (req, res) => {
 });
 
 app.put('/api/map-items/:id', authenticateToken,async (req, res) => {
+  if (!['admin', 'staff'].includes(req.user.role)) {
+    return res.status(403).json({ error: 'Keine Berechtigung zum Bearbeiten' });
+  }
+  
   const { id } = req.params;
   const { label, class: itemClass, x, y, image, details } = req.body;
   const query = `

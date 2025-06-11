@@ -35,7 +35,7 @@ const submitContact = async () => {
       }),
     });
 
-    const data = await res.json();
+    const data = await response.json();
 
     if (res.ok) {
           message.value = 'Vielen Dank! Ihre Nachricht wurde erfolgreich versendet. Wir melden uns bald bei Ihnen.';

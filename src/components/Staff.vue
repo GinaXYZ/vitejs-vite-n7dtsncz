@@ -366,7 +366,7 @@ watch(patientsPage, fetchPatients);
 
 const updatePatient = async (patient) => {
   try {
-    const token = authStore.token || localStorage.getItem('token');
+    const token = authStore.token || localStorage.getItem('token'); 
     await fetch(`http://localhost:3000/api/patients/${patient.id}`, {
       method: 'PUT',
       headers: { 
@@ -490,17 +490,12 @@ const deleteContact = async (id) => {
   if (!confirm('Kontakt wirklich löschen?')) return;
   try {
     const token = authStore.token || localStorage.getItem('token'); 
-    const response = await fetch(`http://localhost:3000/api/contacts/${id}`, {
-      method: 'DELETE',
-      headers: {
-        'Authorization': `Bearer ${token}`
-      }
+    const response = await fetch(`http://localhost:3000/api/contacts/${id}`, { 
+      headers: { 'Authorization': `Bearer ${token}` }
     });
     
     if (response.ok) {
       contacts.value = contacts.value.filter(c => c.id !== id);
-    } else {
-      alert('Fehler beim Löschen des Kontakts');
     }
   } catch (err) {
     alert('Fehler beim Löschen')

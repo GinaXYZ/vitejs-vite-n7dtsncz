@@ -110,7 +110,7 @@ const newBirds = [
         <div class="intro-section">
         <h1 class="intro-title">Wildvogel Rehastation Waabs </h1>
 <p class="intro-text">
-  Willkommen bei der Wildvogelreha Norddeutschland! Seit über 4 Jahren retten, 
+  Willkommen bei der Wildvogelreha Waabs! Seit über 4 Jahren retten, 
   pflegen und rehabilitieren wir verletzte, verwaiste und kranke Vögel aller 
   Arten und Größen. Unser erfahrenes Team aus Tierärzten und Tierpflegern 
   verfügt über modernste Ausstattung und spezialisierte Kenntnisse in der 

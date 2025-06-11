@@ -2,14 +2,14 @@
   <div class="checkout-page">
     <h1>Checkout</h1>
     <form @submit.prevent="submitCheckout">
-        <div class="form-group">
-          <label for="name">Vorname</label>
-          <input type="text" id="name" v-model="formData.firstname" placeholder="Vorname" required />
-        </div>
-        <div class="form-group">
-          <label for="lastname">Nachname</label>
-          <input type="text" id="lastname" v-model="formData.lastname" placeholder="Nachname" required />
-        </div>
+      <div class="form-group">
+        <label for="name">Vorname</label>
+        <input type="text" id="name" v-model="formData.firstname" /> 
+      </div>
+      <div class="form-group">
+        <label for="lastname">Nachname</label>
+        <input type="text" id="lastname" v-model="formData.lastname" /> 
+      </div>
         <div class="form-group">
           <label for="address">Adresse</label>
           <input type="text" id="address" v-model="formData.address" placeholder="Straße und Hausnummer" required />
@@ -53,9 +53,11 @@ import { useRouter } from 'vue-router';
 const router = useRouter();
 const authStore = useAuthStore();
 const formData = ref({
-  name: '',
-  email: '',
-  address: '',
+  firstname: '', 
+  lastname: '',  
+  email: '',    
+  address: '',  
+  city: '',     
   payment: '',
   country: '',
 });
@@ -101,7 +103,7 @@ const submitCheckout = async () => {
         firstname: formData.value.firstname,
         lastname: formData.value.lastname,
         email: formData.value.email,
-        address: formData.value.adress, 
+        address: formData.value.address, 
         city: formData.value.city,
         country: formData.value.country,
         payment: formData.value.payment,
